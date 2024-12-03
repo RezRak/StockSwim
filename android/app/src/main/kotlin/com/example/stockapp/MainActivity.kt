@@ -1,4 +1,4 @@
-package com.example.stockapp
+package com.stockswim.app
 
 import io.flutter.embedding.android.FlutterActivity
 

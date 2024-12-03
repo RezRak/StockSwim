@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1034566902225",
+    "project_id": "stockswim",
+    "storage_bucket": "stockswim.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034566902225:android:bf0abc319603c58e1c40f0",
+        "android_client_info": {
+          "package_name": "com.stockswim.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-nPB9hDjEEgoyReAvV02ryRY2dMe49ZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
