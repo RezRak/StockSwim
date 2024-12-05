@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final String _apiKey = 'ct7451pr01qr3sdtldr0ct7451pr01qr3sdtldrg'; 
-  final String _symbol = 'TSLA'; 
+  final String _symbol = 'NVDA'; 
   Map<String, dynamic>? _stockData;
   bool _isLoading = true;
 
