@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +35,22 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
+  }
+}
+
+class FinnhubService {
+  final String _apiKey = 'ct7451pr01qr3sdtldr0ct7451pr01qr3sdtldrg';
+  final String _baseUrl = 'https://finnhub.io/api/v1';
+
+  Future<Map<String, dynamic>> fetchStockData(String symbol) async {
+    final response = await http.get(
+      Uri.parse('$_baseUrl/quote?symbol=$symbol&token=$_apiKey'),
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load stock data');
+    }
   }
 }
 
