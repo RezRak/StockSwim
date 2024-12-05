@@ -52,8 +52,8 @@ class _NewsFeedState extends State<NewsFeed> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const LogOut()));
+//              Navigator.push(context,
+//                  MaterialPageRoute(builder: (context) => const LogOut()));
             },
             child: const Icon(Icons.edit),
           ),
