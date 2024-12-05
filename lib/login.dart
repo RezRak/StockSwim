@@ -5,13 +5,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:stockapp/home.dart';
 import 'firebase_options.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(MyApp());
 }
 
@@ -50,9 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: <Widget>[
           ElevatedButton(
-            onPressed: () {
-              _signOut();
-            },
+            onPressed: _signOut,
             child: Text('Sign Out'),
           ),
         ],
@@ -106,6 +102,13 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
   }
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -116,7 +119,7 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
             controller: _emailController,
             decoration: InputDecoration(labelText: 'Email'),
             validator: (value) {
-              if (value?.isEmpty??true) {
+              if (value == null || value.isEmpty) {
                 return 'Please enter some text';
               }
               return null;
@@ -124,9 +127,10 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
           ),
           TextFormField(
             controller: _passwordController,
+            obscureText: true,
             decoration: InputDecoration(labelText: 'Password'),
             validator: (value) {
-              if(value?.isEmpty??true) {
+              if (value == null || value.isEmpty) {
                 return 'Please enter some text';
               }
               return null;
@@ -144,17 +148,16 @@ class _RegisterEmailSectionState extends State<RegisterEmailSection> {
               child: Text('Submit'),
             ),
           ),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              _initialState
-                  ? 'Please Register'
-              : _success
-                  ? 'Successfully registered $_userEmail'
-                  : 'Registration failed',
-              style: TextStyle(color: _success ? Colors.green : Colors.red),
+          if (!_initialState)
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                _success
+                    ? 'Successfully registered $_userEmail'
+                    : 'Registration failed',
+                style: TextStyle(color: _success ? Colors.green : Colors.red),
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -175,7 +178,7 @@ class _EmailPasswordFormState extends State<EmailPasswordForm> {
   final TextEditingController _passwordController = TextEditingController();
   bool _success = false;
   bool _initialState = true;
-  String _userEmail ='';
+  String _userEmail = '';
 
   void _signInWithEmailAndPassword() async {
     try {
@@ -188,12 +191,23 @@ class _EmailPasswordFormState extends State<EmailPasswordForm> {
         _userEmail = _emailController.text;
         _initialState = false;
       });
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const Home()),
+      );
     } catch (e) {
       setState(() {
         _success = false;
         _initialState = false;
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -212,7 +226,7 @@ class _EmailPasswordFormState extends State<EmailPasswordForm> {
             controller: _emailController,
             decoration: InputDecoration(labelText: 'Email'),
             validator: (value) {
-              if (value?.isEmpty??true) {
+              if (value == null || value.isEmpty) {
                 return 'Please enter some text';
               }
               return null;
@@ -220,9 +234,10 @@ class _EmailPasswordFormState extends State<EmailPasswordForm> {
           ),
           TextFormField(
             controller: _passwordController,
+            obscureText: true,
             decoration: InputDecoration(labelText: 'Password'),
             validator: (value) {
-              if (value?.isEmpty??true) {
+              if (value == null || value.isEmpty) {
                 return 'Please enter some text';
               }
               return null;
@@ -238,20 +253,6 @@ class _EmailPasswordFormState extends State<EmailPasswordForm> {
                 }
               },
               child: Text('Submit'),
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              _initialState
-                  ? 'Please sign in'
-                  : _success
-                  ? Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Home()),
-                  : 'Sign in failed',
-              style: TextStyle(color: _success ? Colors.green : Colors.red),
             ),
           ),
         ],
