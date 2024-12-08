@@ -11,8 +11,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final String _apiKey = 'ct7451pr01qr3sdtldr0ct7451pr01qr3sdtldrg'; // Replace with your Finnhub API Key
-  final List<String> _symbols = ['NVDA', 'TSLA', 'SPY', 'AAPL']; // Stock Symbols (Apple included)
+  final String _apiKey = 'ct7451pr01qr3sdtldr0ct7451pr01qr3sdtldrg';
+  final List<String> _symbols = ['NVDA', 'TSLA', 'SPY', 'AAPL'];
   Map<String, dynamic>? _nvidiaData;
   Map<String, dynamic>? _teslaData;
   Map<String, dynamic>? _sp500Data;
@@ -56,7 +56,6 @@ class _HomeState extends State<Home> {
         _isLoading = false;
       });
     } catch (e) {
-      print('Error fetching data: $e'); // Debug
       setState(() {
         _isLoading = false;
       });
@@ -66,17 +65,21 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: AppBar(
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
-          child: Container(color: Colors.black, height: 2.0),
+          child: Container(color: Colors.white, height: 2.0),
         ),
-        backgroundColor: Colors.white,
-        title: const Text("Home", style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.black,
+        title: const Text("Home", style: TextStyle(color: Colors.white)),
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            )
           : (_nvidiaData != null &&
                   _teslaData != null &&
                   _sp500Data != null &&
@@ -87,7 +90,11 @@ class _HomeState extends State<Home> {
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
                         'Nvidia',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -118,13 +125,25 @@ class _HomeState extends State<Home> {
                                       getTitlesWidget: (value, meta) {
                                         switch (value.toInt()) {
                                           case 0:
-                                            return const Text('Low');
+                                            return const Text(
+                                              'Low',
+                                              style: TextStyle(color: Colors.white),
+                                            );
                                           case 1:
-                                            return const Text('Current');
+                                            return const Text(
+                                              'Current',
+                                              style: TextStyle(color: Colors.white),
+                                            );
                                           case 2:
-                                            return const Text('High');
+                                            return const Text(
+                                              'High',
+                                              style: TextStyle(color: Colors.white),
+                                            );
                                           case 3:
-                                            return const Text('Open');
+                                            return const Text(
+                                              'Open',
+                                              style: TextStyle(color: Colors.white),
+                                            );
                                           default:
                                             return const Text('');
                                         }
@@ -169,7 +188,51 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 )
-              : const Center(child: Text('Failed to load data')),
+              : const Center(
+                  child: Text(
+                    'Failed to load data',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+      bottomNavigationBar: Container(
+        color: Colors.black,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Home()),
+                );
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: const Color.fromARGB(40, 49, 49, 49),
+              ),
+              child: const Icon(Icons.home, color: Colors.white),
+            ),
+            TextButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.transparent,
+              ),
+              child: const Icon(Icons.business, color: Colors.white),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Home()),
+                );
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.transparent,
+              ),
+              child: const Icon(Icons.favorite, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -197,7 +260,7 @@ class _HomeState extends State<Home> {
 
   Widget _buildBarValue(double value, Color color) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Text(
         value.toStringAsFixed(2),
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color),
@@ -211,14 +274,14 @@ class _HomeState extends State<Home> {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Icon(Icons.show_chart, size: 30, color: color),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
           value,
-          style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+          style: TextStyle(fontSize: 16, color: Colors.grey[300]),
         ),
       ],
     );

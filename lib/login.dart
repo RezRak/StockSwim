@@ -57,6 +57,15 @@ class _MyHomePageState extends State<MyHomePage> {
               'STOCK SWIM',
               style: TextStyle(
                 color: Colors.white,
+                fontSize: 45,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 30), 
+            Text(
+              'LOGIN',
+              style: TextStyle(
+                color: Colors.white,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
