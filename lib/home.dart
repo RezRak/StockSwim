@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
+import 'package:stockapp/watchlist.dart';
+import 'NewsFeed.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -212,7 +214,12 @@ class _HomeState extends State<Home> {
               child: const Icon(Icons.home, color: Colors.white),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                  Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NewsFeed()),
+                );
+              },
               style: TextButton.styleFrom(
                 backgroundColor: Colors.transparent,
               ),
@@ -222,7 +229,7 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const Home()),
+                  MaterialPageRoute(builder: (context) => const WatchList()),
                 );
               },
               style: TextButton.styleFrom(

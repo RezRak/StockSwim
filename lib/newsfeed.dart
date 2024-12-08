@@ -36,7 +36,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
 
   Future<void> _fetchLatestNews() async {
-    final url = 'https://finnhub.io/api/v1/news?category=general&token=$_apiKey';
+    final url = 'https://finnhub.io/api/v1/news?category=crypto&token=$_apiKey';
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -48,16 +48,16 @@ class _NewsFeedState extends State<NewsFeed> {
             return {
               'headline': news['headline'],
               'url': news['url'],
-              'image': news['image'],
+              'image': news['image'], 
             };
           }).toList();
         });
-      }
+      } 
     } catch (e) {
       print('Error fetching news: $e');
     }
   }
-
+  
   Widget build(BuildContext context) {
     
     return Scaffold(
@@ -79,70 +79,70 @@ class _NewsFeedState extends State<NewsFeed> {
               _launchURL(_latestNews[0]['url']);
               },
               child: Text(_latestNews[0]['headline']),
-            ),
+          ),
           if (_latestNews.length > 1)
             ElevatedButton(
               onPressed: () {
                 _launchURL(_latestNews[1]['url']);
               },
               child: Text(_latestNews[1]['headline']),
-            ),
+          ),
           if (_latestNews.length > 2)
-            ElevatedButton(
-              onPressed: () {
+          ElevatedButton(
+            onPressed: () {
                 _launchURL(_latestNews[2]['url']);
-              },
+            },
               child: Text(_latestNews[2]['headline']),
-            ),
+          ),
           
           const SizedBox(height: 5),
           const SizedBox(height: 10),
-          const Spacer(),
+        const Spacer(),
           
           Container(height: 2, color: Colors.white, width: double.infinity),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Home()),
-                  );
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(40, 49, 49, 49),
-                ),
-                child: const Icon(Icons.home),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Home()),
+            );
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: const Color.fromARGB(40, 49, 49, 49),
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const WatchList()),
-                  );
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                ),
-                child: const Icon(Icons.business),
+              child: const Icon(Icons.home),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WatchList()),
+                );
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.transparent,
               ),
-              TextButton(
-                onPressed: () {
+              child: const Icon(Icons.business),
+            ),
+            TextButton(
+              onPressed: () {
                   Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const NewsFeed()),
-                  );
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                ),
-                child: const Icon(Icons.favorite),
+                  context,
+                  MaterialPageRoute(builder: (context) => const NewsFeed()),
+                );
+            },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.transparent,
               ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+              child: const Icon(Icons.favorite),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
 }
