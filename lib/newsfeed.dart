@@ -23,7 +23,7 @@ class _NewsFeedState extends State<NewsFeed> {
           child: Container(color: Colors.black, height: 2.0),
         ),
         backgroundColor: Colors.white,
-        title: const Text("Home", style: TextStyle(color: Colors.black)),
+        title: const Text("Newsfeed", style: TextStyle(color: Colors.black)),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
@@ -90,6 +90,10 @@ class _NewsFeedState extends State<NewsFeed> {
             ),
             TextButton(
               onPressed: () {
+                  Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NewsFeed()),
+                );
             },
               style: TextButton.styleFrom(
                 backgroundColor: Colors.transparent,

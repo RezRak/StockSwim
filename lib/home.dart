@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
           child: Container(color: Colors.white, height: 2.0),
         ),
         backgroundColor: Colors.black,
-        title: const Text("Home", style: TextStyle(color: Colors.white)),
+        title: const Text("Popular", style: TextStyle(color: Colors.white)),
       ),
       body: _isLoading
           ? const Center(

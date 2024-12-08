@@ -23,7 +23,7 @@ class _WatchListState extends State<WatchList> {
           child: Container(color: Colors.black, height: 2.0),
         ),
         backgroundColor: Colors.white,
-        title: const Text("Home", style: TextStyle(color: Colors.black)),
+        title: const Text("Watchlist", style: TextStyle(color: Colors.black)),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
